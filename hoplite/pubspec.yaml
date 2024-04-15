@@ -1,0 +1,38 @@
+name: hoplite
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  fl_chart: ^0.67.0
+  flutter:
+    sdk: flutter
+  flutter_stepindicator: ^0.1.7
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/assets/exercise_pics/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: lib/Assets/Fonts/Inter-ExtraBold.ttf
+
+        - asset: lib/Assets/Fonts/Inter-Bold.ttf
+
+        - asset: lib/Assets/Fonts/Inter-Medium.ttf
+
+        - asset: lib/Assets/Fonts/Inter-Regular.ttf
+
+        - asset: lib/Assets/Fonts/Inter-SemiBold.ttf
+          style: normal
