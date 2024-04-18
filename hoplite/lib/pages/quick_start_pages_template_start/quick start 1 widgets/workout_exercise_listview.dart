@@ -1,5 +1,6 @@
 //creating a list tile
 import 'package:flutter/material.dart';
+import 'package:hoplite/model/workout_model.dart';
 
 //created custom tile go down to see implementation of listview builder
 class CustomListTile2 extends StatelessWidget {
@@ -46,6 +47,7 @@ class CustomListTile2 extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
+                overflow: TextOverflow.ellipsis,
                 exerciseName,
                 style: const TextStyle(
                   color: Color(0xFF0B4130),
@@ -64,18 +66,24 @@ class CustomListTile2 extends StatelessWidget {
 }
 
 class DaysWorkoutListView extends StatelessWidget {
-  final Map<int, String> data;
+  //int , exercise list
+  final Map<int, WorkoutDetail> workoutList;
 
-  const DaysWorkoutListView({super.key, required this.data});
+  const DaysWorkoutListView({super.key, required this.workoutList});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: data.length,
+      itemCount: workoutList.length,
       itemBuilder: (context, index) {
-        int serialNumber = data.keys.elementAt(index);
-        String exerciseName = data.values.elementAt(index);
+        //iterating over this
+        int serialNumber = workoutList.keys.elementAt(index);
+        //getting the value to parse it
+        WorkoutDetail exercise = workoutList.values.elementAt(index);
+//parsing it
+        String exerciseName = exercise.name;
+        //not workoutdetail itself doesnt contain the details of the workout rather it contains the indexs of the workoutdetail list
 
         return Column(
           children: [

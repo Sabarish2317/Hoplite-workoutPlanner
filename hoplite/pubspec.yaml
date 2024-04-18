@@ -7,10 +7,13 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
+  chat_gpt_sdk: ^3.0.4
+  dash_chat_2: ^0.0.20
   fl_chart: ^0.67.0
   flutter:
     sdk: flutter
   flutter_stepindicator: ^0.1.7
+  intl: 0.18.1
 
 dev_dependencies:
   flutter_lints: ^3.0.0

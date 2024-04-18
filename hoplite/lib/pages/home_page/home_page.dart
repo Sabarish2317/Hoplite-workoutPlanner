@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/note.dart';
 import 'package:hoplite/pages/start_workout_page/start_workout_page.dart';
-import '../../data/data.dart';
+import '../../data/userdata.dart';
 import 'home page widgets/big_button.dart';
 import 'home page widgets/bottom_nav.dart';
 import 'home page widgets/cards.dart';
@@ -29,9 +30,12 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //user name and profile avatar
-              ProfileBar(userName: userData["Name"], subTitle: "Start workout"),
+              ProfileBar(
+                  userName: USER_DETAILS["firstName"], subTitle: "Hop Lite"),
               //weekly dashbard
               WeeklyDashboard(chartData: chartData),
+              note(
+                  'higher bars correspond to longer durations of physical activity per day🔥 '),
               //body stats
               StatusCards(
                 cardsData: cardsData,

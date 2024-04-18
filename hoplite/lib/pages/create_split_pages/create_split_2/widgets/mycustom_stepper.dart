@@ -4,10 +4,10 @@ class MyCustomStepper extends StatefulWidget {
   final int selectedIndex;
   final int count;
   const MyCustomStepper({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.count,
-  }) : super(key: key);
+  });
 
   @override
   State<MyCustomStepper> createState() => _MyCustomStepperState();

@@ -5,12 +5,14 @@ class ButtonSmall extends StatefulWidget {
   final BuildContext context;
   final String? snackBarText;
   final Widget navigateTo;
+  final bool shouldPop;
   const ButtonSmall(
       {super.key,
       required this.h2,
       required this.context,
       this.snackBarText,
-      required this.navigateTo});
+      required this.navigateTo,
+      required this.shouldPop});
 
   @override
   State<ButtonSmall> createState() => _ButtonSmallState();
@@ -40,15 +42,23 @@ class _ButtonSmallState extends State<ButtonSmall> {
         child: InkWell(
           borderRadius: BorderRadius.circular(13),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => widget.navigateTo,
-              ),
-            );
-            if (widget.snackBarText != null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Saved to workout History')));
+            if (widget.shouldPop == true) {
+              Navigator.pop(context);
+              if (widget.snackBarText != null) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(widget.snackBarText ?? "successfu;;")));
+              }
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => widget.navigateTo,
+                ),
+              );
+              if (widget.snackBarText != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Saved to workout History')));
+              }
             }
           },
           child: Center(

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
 class MyDropDownButton extends StatefulWidget {
-  final int initialValue;
-  final List<int> dropDownItems;
+  final int? initialValue;
+  final List<int>? dropDownItems;
   final double width;
+  final int? index;
+  final String? keyName;
+
   const MyDropDownButton(
       {super.key,
       required this.initialValue,
       required this.dropDownItems,
-      required this.width});
+      required this.width,
+      required this.index,
+      required this.keyName});
 
   @override
   State<MyDropDownButton> createState() => _MyDropDownButtonState();
@@ -18,6 +23,7 @@ class _MyDropDownButtonState extends State<MyDropDownButton> {
   late int? selectedValue;
 
   late List<int>? dropDownItems;
+  //getting global data and not the referenced data
 
   @override
   void initState() {

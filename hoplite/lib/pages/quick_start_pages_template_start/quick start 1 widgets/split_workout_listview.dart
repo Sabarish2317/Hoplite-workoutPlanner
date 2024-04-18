@@ -1,6 +1,7 @@
 //creating a list tile
 import 'package:flutter/material.dart';
 
+import '../../../model/workout_model.dart';
 import 'start_workout_popup.dart';
 
 //created custom tile go down to see implementation of listview builder
@@ -77,36 +78,49 @@ class CustomListTile extends StatelessWidget {
 }
 
 class SplitDaysListView extends StatelessWidget {
-  final Map<int, String> data;
-
-  const SplitDaysListView({super.key, required this.data});
+  //contains index and instance to the day name class
+  final Map<int, DayName> dayListReference;
+  final String templateName;
+  const SplitDaysListView({
+    super.key,
+    required this.dayListReference,
+    required this.templateName,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: data.length,
+      itemCount: dayListReference.length,
       itemBuilder: (context, index) {
-        int serialNumber = data.keys.elementAt(index);
-        String dayName = data.values.elementAt(index);
+        // Check if the index is within bounds
+        if (index >= 0 && index < dayListReference.length) {
+          //parsing serial numberss as keys from the map and iterating over it
+          int serialNumber = dayListReference.keys.elementAt(index);
+          //creating instance of the class for the loop which
+          DayName dayNameReference = dayListReference.values.elementAt(index);
+          //using the instance to access the day name iteringingly
+          String dayName = dayNameReference.dayName;
 
-        return Column(
-          children: [
-            CustomListTile(
-              serialNumber: serialNumber,
-              dayName: dayName,
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const QuickStartPage2()),
-                // );
-                startWorkoutPopUpBox(context);
-              },
-            ),
-            const Divider()
-          ],
-        );
+          return Column(
+            children: [
+              CustomListTile(
+                serialNumber: serialNumber + 1,
+                dayName: dayName,
+                onTap: () {
+                  startWorkoutPopUpBox(
+                      templateName, dayName, context, dayNameReference);
+                },
+              ),
+              const Divider(),
+            ],
+          );
+        } else {
+          // Handle index out of bounds gracefully, such as returning an empty container
+          return const SizedBox(
+            child: Center(child: Text("outofbounds or no data")),
+          );
+        }
       },
     );
   }

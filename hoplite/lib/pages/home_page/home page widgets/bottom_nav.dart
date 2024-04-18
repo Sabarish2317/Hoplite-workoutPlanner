@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hoplite/pages/chatbot.dart';
-import 'package:hoplite/pages/history_page.dart';
 
-import '../../start_workout_page/start_workout_page.dart';
+import 'package:hoplite/pages/workout_pages/workout_page.dart';
+import '../../chatbot.dart';
+import '../../history/history_page.dart';
 import '../home_page.dart'; // Import the home page
 
 class BottomNavBar extends StatefulWidget {
@@ -19,7 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
     const HomePage(),
     const HistoryPage(),
-    const StartWorkoutPage(), // Assuming you have a StartWorkoutPage
+    const WorkoutPage(), // Assuming you have a StartWorkoutPage
     const ChatBotPage(),
   ];
 

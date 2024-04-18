@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 class ProfileBar extends StatefulWidget {
   final String? userName;
   final String? subTitle;
-  const ProfileBar({super.key, required this.userName, required this.subTitle});
+
+  const ProfileBar({
+    super.key,
+    required this.userName,
+    required this.subTitle,
+  });
 
   @override
   State<ProfileBar> createState() => _ProfileBarState();

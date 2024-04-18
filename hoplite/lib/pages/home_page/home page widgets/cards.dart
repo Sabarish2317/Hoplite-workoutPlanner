@@ -1,6 +1,7 @@
 //card with header
 
 import 'package:flutter/material.dart';
+import 'package:hoplite/data/userdata.dart';
 
 class StatusCards extends StatefulWidget {
   final Map<String, int> cardsData;
@@ -14,24 +15,18 @@ class StatusCards extends StatefulWidget {
 }
 
 class _StatusCardsState extends State<StatusCards> {
-  @override
-  void initState() {
-    super.initState();
-    // Map<String, int> cardsData = widget.cardsData;
-    // weight
-    // height
-    // fat use it in box later
-  }
-
+  int weight = cardsData.values.elementAt(0);
+  int height = cardsData.values.elementAt(1);
+  int fat = cardsData.values.elementAt(2);
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         //heading and subheading
-        SizedBox(
+        const SizedBox(
           width: double.infinity,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -67,7 +62,7 @@ class _StatusCardsState extends State<StatusCards> {
             ],
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         //actual cards row
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,19 +71,19 @@ class _StatusCardsState extends State<StatusCards> {
           children: [
             Cards(
               iconPath: "lib/assets/exercise_pics/dumbell_icon.png",
-              measure: 70,
+              measure: weight,
               unit: "KG",
               type: "Weight",
             ),
             Cards(
               iconPath: "lib/assets/exercise_pics/height_icon.png",
-              measure: 170,
+              measure: height,
               unit: "CM",
               type: "Height",
             ),
             Cards(
               iconPath: "lib/assets/exercise_pics/tape_icon.png",
-              measure: 70,
+              measure: fat,
               unit: "%",
               type: "BodyFat",
             )
@@ -217,7 +212,7 @@ class _CardsState extends State<Cards> {
           actions: <Widget>[
             ElevatedButton(
               onPressed: () {
-                // Perform action when button is pressed
+                // Perform action when
                 Navigator.of(context).pop();
               },
               child: const Text('Submit'),
@@ -230,4 +225,3 @@ class _CardsState extends State<Cards> {
 }
 
 //data
-

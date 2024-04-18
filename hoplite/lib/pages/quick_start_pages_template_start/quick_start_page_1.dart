@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hoplite/global_widgets/h1_h2.dart';
-import 'package:hoplite/pages/quick_start_pages/quick%20start%201%20widgets/h0_h2.dart';
-import 'package:hoplite/pages/quick_start_pages/quick%20start%201%20widgets/split_workout_listview.dart';
+import 'package:hoplite/pages/quick_start_pages_template_start/quick%20start%201%20widgets/h0_h2.dart';
+import 'package:hoplite/pages/quick_start_pages_template_start/quick%20start%201%20widgets/split_workout_listview.dart';
+
+import '../../model/workout_model.dart';
 
 class QuickStartPage extends StatefulWidget {
-  const QuickStartPage({super.key});
+  //sepereatig data to show the list view and passing the rest of the data to the list view and not showing it
+  //day name contains the workout day name eg.chest day and the instance to the object cotnaining list of exercises
+  final Map<int, DayName> dayListReference;
+  final String splitName;
+  const QuickStartPage(
+      {super.key, required this.dayListReference, required this.splitName});
 
   @override
   State<QuickStartPage> createState() => _QuickStartPageState();
@@ -24,7 +31,7 @@ class _QuickStartPageState extends State<QuickStartPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //back button with title
-              h0_h2("Workout", "Bro's", context),
+              h0_h2("Workout", widget.splitName, context),
               const SizedBox(
                 height: 24,
               ),
@@ -48,21 +55,15 @@ class _QuickStartPageState extends State<QuickStartPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      h1h2("Workout", "Bro's Split"),
+                      h1h2("Workout", "${widget.splitName} Split"),
                       const SizedBox(
                         height: 16,
                       ),
-                      const SplitDaysListView(
-                        data: {
-                          1: 'Chest',
-                          2: 'Triceps',
-                          3: 'Biceps',
-                          4: 'Legs',
-                          5: 'Shoulder',
-                          6: 'Back',
-                          // Add more entries as needed
-                        },
-                      )
+                      SplitDaysListView(
+                          dayListReference: widget.dayListReference,
+                          templateName: widget.splitName
+                          //data of int and dayName and DayName object reference
+                          ),
                     ],
                   ),
                 ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:hoplite/global_widgets/button_small.dart';
-import 'package:hoplite/pages/create_split_pages/create_split_1/widgets/stepper.dart';
-import 'package:hoplite/pages/quick_start_pages/quick%20start%201%20widgets/h0_h2.dart';
+
+import 'package:hoplite/pages/quick_start_pages_template_start/quick%20start%201%20widgets/h0_h2.dart';
 
 import '../../../global_widgets/h1_h2.dart';
 import '../create_split_2/create_split_2.dart';
@@ -32,9 +32,7 @@ class _CreateSplitState extends State<CreateSplit> {
               const SizedBox(
                 height: 24,
               ),
-              const MySmallStepper(
-                nth: 1,
-              ),
+
               const SizedBox(
                 height: 24,
               ),
@@ -97,6 +95,7 @@ class _CreateSplitState extends State<CreateSplit> {
                       height: 32,
                     ),
                     ButtonSmall(
+                        shouldPop: false,
                         h2: "Confirm",
                         context: context,
                         navigateTo: const CreateSplit2())
