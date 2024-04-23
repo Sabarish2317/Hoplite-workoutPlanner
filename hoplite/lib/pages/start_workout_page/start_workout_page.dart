@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:hoplite/data/workoutdata.dart';
 import 'package:hoplite/global_widgets/h1_h2.dart';
 import 'package:hoplite/pages/create_split_pages/create_split_1/create_split1.dart';
-import 'package:hoplite/pages/home_page/home%20page%20widgets/big_button.dart';
+import 'package:hoplite/pages/start_workout_page/widgets/bigbutton.dart';
 import 'package:hoplite/pages/start_workout_page/widgets/workout_cards.dart';
+import '../../data/appData.dart';
 import '../../data/userdata.dart';
 import '../../model/workout_model.dart';
 import '../home_page/home page widgets/profile_bar.dart';
@@ -38,10 +39,13 @@ class _StartWorkoutPageState extends State<StartWorkoutPage> {
                   userName: USER_DETAILS["firstName"],
                   subTitle: "Start workout"),
               h1h2("Quick Start", "Preset Workouts"),
-              WorkoutCardsListView(templateName: templateNameInstance),
+              WorkoutCardsListView(
+                  templateName: templateNameInstance, type: "preDef"),
               h1h2("Templates", "My templates"),
-              WorkoutCardsListView(templateName: templateNameInstance),
-              ButtonLarge(
+              WorkoutCardsListView(
+                  templateName: appTemplateNames, type: "userDef"),
+              Text((appTemplateNames.length > 0) ? "" : "Create own splits"),
+              SplitButtonLarge(
                 headerrtext: "CREATE SPLIT",
                 subtext: "Splits",
                 navigateTo: CreateSplit(),
@@ -57,10 +61,12 @@ class _StartWorkoutPageState extends State<StartWorkoutPage> {
 //list view to show in cards
 class WorkoutCardsListView extends StatelessWidget {
   final List<TemplateName> templateName;
+  final String type;
 
   const WorkoutCardsListView({
     super.key,
     required this.templateName,
+    required this.type,
   });
 
   @override
@@ -81,6 +87,7 @@ class WorkoutCardsListView extends StatelessWidget {
         String singleTemplateName = singleTemplate.name;
         //parsing the instance again to acces the 2nd object dayList which contains the different workout days eg.chest,legs
         Map<int, DayName> dayListReference = singleTemplate.dayList;
+        //returning the class instance which can be used for deleting later
 
         return SizedBox(
           height: 81,
@@ -92,6 +99,8 @@ class WorkoutCardsListView extends StatelessWidget {
             children: [
               WorkoutCard(
                 h1: singleTemplateName,
+                templateInstance: templateName[index],
+                type: type,
 
                 //used to delete
                 index: index,

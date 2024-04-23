@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hoplite/model/workout_model.dart';
 
@@ -24,12 +25,23 @@ class WorkoutListview extends StatelessWidget {
                     SizedBox(
                       height: 46,
                       width: 35,
-                      child: Image.asset(
-                        workoutDetails[index].imgPath,
-                        fit: BoxFit.fill,
-                      ),
+                      child: (() {
+                        if (workoutDetails[index].imgPath.startsWith('lib')) {
+                          // Load as an asset
+                          return Image.asset(
+                            workoutDetails[index].imgPath,
+                            fit: BoxFit.fill,
+                          );
+                        } else {
+                          // Load as a local file
+                          return Image.file(
+                            File(workoutDetails[index].imgPath),
+                            fit: BoxFit.fill,
+                          );
+                        }
+                      })(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     Column(

@@ -50,21 +50,23 @@ class _QuickStartPageState extends State<QuickStartPage> {
                       borderRadius: BorderRadius.circular(26),
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      h1h2("Workout", "${widget.splitName} Split"),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      SplitDaysListView(
-                          dayListReference: widget.dayListReference,
-                          templateName: widget.splitName
-                          //data of int and dayName and DayName object reference
-                          ),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        h1h2("Workout", "${widget.splitName} Split"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        SplitDaysListView(
+                            dayListReference: widget.dayListReference,
+                            templateName: widget.splitName
+                            //data of int and dayName and DayName object reference
+                            ),
+                      ],
+                    ),
                   ),
                 ),
               )

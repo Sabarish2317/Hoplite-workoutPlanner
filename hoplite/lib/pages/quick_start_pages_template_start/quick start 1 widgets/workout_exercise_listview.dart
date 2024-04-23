@@ -78,7 +78,7 @@ class DaysWorkoutListView extends StatelessWidget {
       itemCount: workoutList.length,
       itemBuilder: (context, index) {
         //iterating over this
-        int serialNumber = workoutList.keys.elementAt(index);
+        int serialNumber = index + 1;
         //getting the value to parse it
         WorkoutDetail exercise = workoutList.values.elementAt(index);
 //parsing it

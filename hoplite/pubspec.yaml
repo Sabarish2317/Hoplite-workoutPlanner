@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_stepindicator: ^0.1.7
+  image_picker: ^1.1.0
   intl: 0.18.1
 
 dev_dependencies:

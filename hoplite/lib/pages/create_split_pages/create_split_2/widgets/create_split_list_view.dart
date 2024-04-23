@@ -1,22 +1,38 @@
 //created custom tile go down to see implementation of listview builder
 import 'package:flutter/material.dart';
+import 'package:hoplite/data/workoutdata.dart';
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/dd_button_for%20_str_exercise.dart';
 
-class CreateSplitListTile extends StatelessWidget {
+import '../../../../model/workout_model.dart';
+
+class CreateSplitListTile extends StatefulWidget {
   final int serialNumber;
+  final Function(int, String) onDropDownChanged;
 
   final VoidCallback? onTap;
 
   const CreateSplitListTile({
-    super.key,
+    Key? key,
     required this.serialNumber,
     this.onTap,
+    required this.onDropDownChanged,
   });
 
   @override
+  State<CreateSplitListTile> createState() => _CreateSplitListTileState();
+}
+
+class _CreateSplitListTileState extends State<CreateSplitListTile> {
+  String _selectedWorkout = 'Bench Press';
+
+  @override
   Widget build(BuildContext context) {
+    List<String> workoutList = [];
+    for (int i = 0; i < workoutDetails.length; i++) {
+      workoutList.add(workoutDetails[i].name);
+    }
     return ListTile(
-      onTap: onTap,
+      onTap: widget.onTap,
       minVerticalPadding: 0,
       visualDensity: VisualDensity.standard,
       contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
@@ -31,7 +47,7 @@ class CreateSplitListTile extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "$serialNumber",
+                "${widget.serialNumber}",
                 style: const TextStyle(
                   color: Color(0xFF0B4130),
                   fontSize: 12,
@@ -43,18 +59,52 @@ class CreateSplitListTile extends StatelessWidget {
             ),
           ),
           Container(
-              width: 150,
-              height: 40,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: ShapeDecoration(
-                color: const Color(0xFFF2F2F2),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6)),
+            width: 150,
+            height: 40,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: ShapeDecoration(
+              color: const Color(0xFFF2F2F2),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
               ),
-              child: const MyExerciseDropDownButton(
-                  initialValue: "Chest",
-                  width: 150,
-                  dropDownItems: ["Chest", "Back"])),
+            ),
+            child: DropdownButton<String>(
+              borderRadius: BorderRadius.circular(9),
+              dropdownColor: const Color.fromARGB(220, 255, 255, 255),
+              value: _selectedWorkout,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedWorkout = newValue!;
+                  widget.onDropDownChanged(
+                      widget.serialNumber, _selectedWorkout);
+                });
+              },
+              icon: const Icon(
+                Icons.arrow_drop_down_rounded,
+                color: Color.fromARGB(255, 11, 77, 56),
+              ),
+              iconSize: 24,
+              elevation: 0,
+              underline: Container(
+                color: Colors.transparent,
+              ),
+              items: workoutList.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      color: Color(0xFF0B4130),
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w500,
+                      height: 0,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
         ],
       ),
     );
@@ -63,11 +113,14 @@ class CreateSplitListTile extends StatelessWidget {
 
 //list view builder
 class CreateSplitListView extends StatelessWidget {
-  final Map<int, String> data;
   final int itemCount;
+  final Function(int, String) onDropDownChanged; // Define the callback function
 
-  const CreateSplitListView(
-      {super.key, required this.data, required this.itemCount});
+  const CreateSplitListView({
+    super.key,
+    required this.itemCount,
+    required this.onDropDownChanged, // Add the required callback function
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,17 +131,16 @@ class CreateSplitListView extends StatelessWidget {
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
+          int indexes = index + 1;
+
           return Column(
             children: [
               CreateSplitListTile(
-                serialNumber: 2,
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const QuickStartPage2()),
-                  // );
-                  // startWorkoutPopUpBox(context);
+                serialNumber: indexes,
+                onDropDownChanged: (index, value) {
+                  // Adjusted to accept two arguments
+                  // Pass the selected value to the parent
+                  onDropDownChanged(index, value);
                 },
               ),
               const Divider()

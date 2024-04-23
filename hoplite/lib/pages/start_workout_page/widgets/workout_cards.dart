@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hoplite/data/appData.dart';
+import 'package:hoplite/data/workoutdata.dart';
 import 'package:hoplite/pages/home_page/home_page.dart';
 import 'package:hoplite/pages/quick_start_pages_template_start/quick_start_page_1.dart';
 import 'package:hoplite/pages/start_workout_page/start_workout_page.dart';
@@ -7,15 +9,18 @@ import '../../../model/workout_model.dart';
 
 class WorkoutCard extends StatefulWidget {
   final String h1;
-
+  final TemplateName templateInstance;
   final int index;
+  final String type;
   final Map<int, DayName> dayList;
 
   const WorkoutCard(
       {super.key,
       required this.h1,
       required this.index,
-      required this.dayList});
+      required this.dayList,
+      required this.templateInstance,
+      required this.type});
 
   @override
   State<WorkoutCard> createState() => _WorkoutCardState();
@@ -29,7 +34,8 @@ class _WorkoutCardState extends State<WorkoutCard> {
       child: InkWell(
           radius: 15,
           onLongPress: () {
-            showDialogBox(context, widget.index);
+            showDialogBox(
+                context, widget.h1, widget.templateInstance, widget.type);
           },
           onTap: () {
             Navigator.push(
@@ -122,7 +128,8 @@ class _WorkoutCardState extends State<WorkoutCard> {
     );
   }
 
-  void showDialogBox(BuildContext context, int index) {
+  void showDialogBox(BuildContext context, String name,
+      TemplateName templateNameInstance, String type) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -133,7 +140,28 @@ class _WorkoutCardState extends State<WorkoutCard> {
             ElevatedButton(
               onPressed: () {
                 // Perform action when button is pressed
-                templateNameInstance.removeAt(index);
+                try {
+                  setState(() {
+                    if (type == "preDef") {
+                      for (int i = 0; i < appTemplateNames.length; i++) {
+                        if (appTemplateNames[i].name == name) {
+                          appTemplateNames.remove(i);
+                        }
+                      }
+                    } else if (type == "userDef") {
+                      for (int i = 0; i < templateNames.length; i++) {
+                        if (templateNames[i].name == name) {
+                          templateNames.remove(i);
+                        }
+                      }
+                    }
+
+                    // appTemplateNames
+                    // templateNames
+                  });
+                } catch (e) {
+                  print(e);
+                }
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const HomePage()),
 

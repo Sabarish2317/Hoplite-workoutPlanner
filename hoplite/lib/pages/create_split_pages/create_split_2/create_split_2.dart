@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hoplite/data/workoutdata.dart';
 
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/creat_split_list_view_heading.dart';
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/create_split_list_view.dart';
@@ -6,25 +8,48 @@ import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/mycustom
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/note.dart';
 import 'package:hoplite/pages/start_workout_page/start_workout_page.dart';
 
+import '../../../data/appData.dart';
 import '../../../global_widgets/h1_h2.dart';
+import '../../../model/workout_model.dart';
 import '../../quick_start_pages_template_start/quick start 1 widgets/h0_h2.dart';
 
 class CreateSplit2 extends StatefulWidget {
-  const CreateSplit2({super.key});
+  final String splitNameCont;
+  final int perWeekCont;
+  const CreateSplit2({
+    super.key,
+    required this.splitNameCont,
+    required this.perWeekCont,
+  });
 
   @override
   State<CreateSplit2> createState() => _CreateSplit2State();
 }
 
 class _CreateSplit2State extends State<CreateSplit2> {
+  //controller
+  TextEditingController dayNameCT = TextEditingController();
+  //for day 1 day 2 widget
   int selectedIndex = 1;
-  int count = 6;
+  //getting the paramfrom previous page and using it to set the cound of no. od days in day 1 2
+  late int count = widget.perWeekCont;
+  //total item count of dd button
   int itemCount = 3;
+  //list to have all the day name
+  List<String> dayNameList = [];
+  List<DayName> dayName = [];
+  Map<int, DayName> splitDay = {};
+
+  Map<int, DayName> splitDays = {};
+  late TemplateName valueHolder = TemplateName(widget.splitNameCont, splitDays);
+
+  List<Map<int, String>> selectedValues =
+      []; // Store selected values from drop down
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFFF2F2F2),
+      // Your existing code...
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
@@ -75,7 +100,7 @@ class _CreateSplit2State extends State<CreateSplit2> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      h1h2("Bros'S Split", "Chest"),
+                      h1h2("${widget.splitNameCont} Split", ""),
                       //using seperae column for different padding for heading and listview contents
                       const SizedBox(
                         height: 32,
@@ -83,27 +108,35 @@ class _CreateSplit2State extends State<CreateSplit2> {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Day Name',
+                          'Enter Day Name',
                           style: TextStyle(
                             color: Color(0xFF0B4130),
-                            fontSize: 12,
+                            fontSize: 14,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w600,
                             height: 0.10,
                           ),
                         ),
                       ),
-                      TextFormField(),
+                      TextFormField(
+                        controller: dayNameCT,
+                      ),
                       const SizedBox(
                         height: 32,
                       ),
                       createSplitListViewHeading(),
                       SizedBox(
-                          height: 280,
-                          child: CreateSplitListView(
-                            data: const {},
-                            itemCount: itemCount,
-                          )),
+                        height: 280,
+                        child: CreateSplitListView(
+                          itemCount: itemCount,
+                          onDropDownChanged: (index, value) {
+                            // Handle the selected values here
+                            setState(() {
+                              selectedValues.add({index: value});
+                            });
+                          },
+                        ),
+                      ),
                       const SizedBox(
                         height: 12,
                       ),
@@ -172,7 +205,7 @@ class _CreateSplit2State extends State<CreateSplit2> {
                             ],
                           ),
 
-                          //add button
+                          //next
                           ElevatedButton(
                             style: const ButtonStyle(
                               side: MaterialStatePropertyAll(BorderSide(
@@ -183,9 +216,94 @@ class _CreateSplit2State extends State<CreateSplit2> {
                               elevation: MaterialStatePropertyAll(0),
                             ),
                             onPressed: () {
+                              selectedIndex += 1;
+
                               setState(() {
-                                selectedIndex += 1;
+                                dayNameList.add(dayNameCT.text);
+                                dayNameCT.clear();
+
+                                //dont touch its working after clicking confitrm
+                                //breakpoint
                                 if (selectedIndex > count) {
+                                  //looping over selected values from the dd button
+                                  //iterating over the list
+                                  int countbb = 0;
+
+                                  Map<int, WorkoutDetail> temp1 = {};
+                                  Map<int, WorkoutDetail> temp2 = {};
+                                  Map<int, WorkoutDetail> temp3 = {};
+                                  Map<int, WorkoutDetail> temp4 = {};
+                                  Map<int, WorkoutDetail> temp5 = {};
+                                  Map<int, WorkoutDetail> temp6 = {};
+
+                                  List<Map<int, WorkoutDetail>> workoutName = [
+                                    temp1,
+                                    temp2,
+                                    temp3,
+                                    temp4,
+                                    temp5,
+                                    temp6
+                                  ];
+
+                                  for (int i = 0;
+                                      i < selectedValues.length;
+                                      i++) {
+                                    int key = selectedValues[i].keys.first;
+                                    String value =
+                                        selectedValues[i].values.first;
+
+                                    WorkoutDetail workoutDetail = WorkoutDetail(
+                                      value,
+                                      "",
+                                      1,
+                                      0,
+                                      0,
+                                      "lib/assets/exercise_pics/exercisePic (8).jpeg",
+                                    );
+                                    if (key == 1) {
+                                      countbb++;
+                                    }
+
+                                    switch (countbb) {
+                                      case 1:
+                                        temp1[i] = workoutDetail;
+                                        break;
+                                      case 2:
+                                        temp2[i] = workoutDetail;
+                                        break;
+                                      case 3:
+                                        temp3[i] = workoutDetail;
+                                        break;
+                                      case 4:
+                                        temp4[i] = workoutDetail;
+                                        break;
+                                      case 5:
+                                        temp5[i] = workoutDetail;
+                                        break;
+                                      case 6:
+                                        temp6[i] = workoutDetail;
+                                        break;
+                                      default:
+                                        // Handle unexpected key values
+                                        break;
+                                    }
+                                  }
+
+                                  //got the workout list now we need to store it in dayyName class with the names we got fro controller
+                                  for (int i = 0; i < count; i++) {
+                                    DayName day =
+                                        DayName(dayNameList[i], workoutName[i]);
+                                    // Add the DayName object to the dayName list
+                                    dayName.add(day);
+                                  }
+                                  for (int i = 0; i < dayName.length; i++) {
+                                    splitDays.addAll({i: dayName[i]});
+                                  }
+                                  //
+                                  //
+                                  //
+                                  appTemplateNames.add(valueHolder);
+
                                   Navigator.of(context)
                                       .popUntil((route) => route.isFirst);
                                   Navigator.push(
@@ -198,6 +316,23 @@ class _CreateSplit2State extends State<CreateSplit2> {
                                       const SnackBar(
                                           content: Text(
                                               'Created Split Successfully')));
+
+                                  // Assuming you have a list of TemplateName objects named templateNames
+
+// Print each TemplateName instance in the list
+                                  appTemplateNames.forEach((template) {
+                                    print('TemplateName: ${template.name}');
+                                    print('Contents:');
+                                    template.dayList.forEach((index, dayName) {
+                                      print('  Day $index: ${dayName.dayName}');
+                                      dayName.workoutList
+                                          .forEach((index, workoutDetail) {
+                                        print(
+                                            '    Workout $index: ${workoutDetail.name}');
+                                        // Print other properties of workoutDetail as needed
+                                      });
+                                    });
+                                  });
                                 }
                               });
                             },

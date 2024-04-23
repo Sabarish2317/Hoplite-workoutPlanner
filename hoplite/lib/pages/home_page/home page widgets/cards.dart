@@ -1,25 +1,26 @@
-//card with header
-
 import 'package:flutter/material.dart';
-import 'package:hoplite/data/userdata.dart';
 
 class StatusCards extends StatefulWidget {
   final Map<String, int> cardsData;
+  final void Function(String type, int value) updateCardData;
+
   const StatusCards({
-    super.key,
+    Key? key,
     required this.cardsData,
-  });
+    required this.updateCardData,
+  }) : super(key: key);
 
   @override
   State<StatusCards> createState() => _StatusCardsState();
 }
 
 class _StatusCardsState extends State<StatusCards> {
-  int weight = cardsData.values.elementAt(0);
-  int height = cardsData.values.elementAt(1);
-  int fat = cardsData.values.elementAt(2);
   @override
   Widget build(BuildContext context) {
+    int weight = widget.cardsData['weight'] ?? 0;
+    int height = widget.cardsData['height'] ?? 0;
+    int fat = widget.cardsData['fat'] ?? 0;
+
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -74,39 +75,72 @@ class _StatusCardsState extends State<StatusCards> {
               measure: weight,
               unit: "KG",
               type: "Weight",
+              onTap: () => showDialogBox(context, "weight"),
             ),
             Cards(
               iconPath: "lib/assets/exercise_pics/height_icon.png",
               measure: height,
               unit: "CM",
               type: "Height",
+              onTap: () => showDialogBox(context, "height"),
             ),
             Cards(
               iconPath: "lib/assets/exercise_pics/tape_icon.png",
               measure: fat,
               unit: "%",
               type: "BodyFat",
+              onTap: () => showDialogBox(context, "fat"),
             )
           ],
         )
       ],
     );
   }
+
+  void showDialogBox(BuildContext context, String type) {
+    TextEditingController textEditingController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Edit'),
+          content: TextField(
+            controller: textEditingController,
+            decoration: const InputDecoration(hintText: 'Enter the value'),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                int newValue = int.tryParse(textEditingController.text) ?? 0;
+                setState(() {
+                  widget.updateCardData(type, newValue);
+                });
+                Navigator.pop(context); // Close the dialog
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
-//cards widget
-//cards widget
 class Cards extends StatefulWidget {
   final int measure;
   final String type;
   final String iconPath;
   final String unit;
-  const Cards(
-      {super.key,
-      required this.measure,
-      required this.type,
-      required this.iconPath,
-      required this.unit});
+  final Function() onTap;
+
+  const Cards({
+    Key? key,
+    required this.measure,
+    required this.type,
+    required this.iconPath,
+    required this.unit,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   State<Cards> createState() => _CardsState();
@@ -116,9 +150,7 @@ class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        showDialogBox(context);
-      },
+      onTap: widget.onTap,
       child: Container(
         width: 105,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -198,30 +230,4 @@ class _CardsState extends State<Cards> {
       ),
     );
   }
-
-  // Display the dialog box method
-  void showDialogBox(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Edit'),
-          content: const TextField(
-            decoration: InputDecoration(hintText: 'Enter the value'),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                // Perform action when
-                Navigator.of(context).pop();
-              },
-              child: const Text('Submit'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
-
-//data

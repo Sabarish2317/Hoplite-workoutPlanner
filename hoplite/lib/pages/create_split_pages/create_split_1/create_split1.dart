@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:hoplite/global_widgets/button_small.dart';
-
+import 'package:hoplite/pages/create_split_pages/create_split_1/widgets/buttonsmallconfirm.dart';
 import 'package:hoplite/pages/quick_start_pages_template_start/quick%20start%201%20widgets/h0_h2.dart';
-
 import '../../../global_widgets/h1_h2.dart';
-import '../create_split_2/create_split_2.dart';
 
 class CreateSplit extends StatefulWidget {
   const CreateSplit({super.key});
@@ -15,6 +11,8 @@ class CreateSplit extends StatefulWidget {
 }
 
 class _CreateSplitState extends State<CreateSplit> {
+  TextEditingController splitNameCont = TextEditingController();
+  TextEditingController daysPerWeekCont = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +71,7 @@ class _CreateSplitState extends State<CreateSplit> {
                         ),
                       ),
                     ),
-                    TextFormField(),
+                    TextFormField(controller: splitNameCont),
                     const SizedBox(
                       height: 32,
                     ),
@@ -90,15 +88,17 @@ class _CreateSplitState extends State<CreateSplit> {
                         ),
                       ),
                     ),
-                    TextFormField(),
+                    TextFormField(
+                      controller: daysPerWeekCont,
+                    ),
                     const SizedBox(
                       height: 32,
                     ),
-                    ButtonSmall(
-                        shouldPop: false,
+                    CfButtonSmall(
                         h2: "Confirm",
                         context: context,
-                        navigateTo: const CreateSplit2())
+                        dpwController: daysPerWeekCont,
+                        snController: splitNameCont)
                   ],
                 ),
               ),

@@ -37,7 +37,7 @@ class _QuickStartPage2State extends State<QuickStartPage2> {
               const SizedBox(height: 32),
 
               Expanded(
-                  child: LiveWorkoutListView(
+                  child: LiveWorkoutListViewContainer(
                       templateName: widget.templateName,
                       dayName: widget.dayName,
                       exerciseList: widget.exerciseList)),

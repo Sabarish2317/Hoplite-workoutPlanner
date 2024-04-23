@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:hoplite/model/workout_model.dart';
-
-import 'package:hoplite/pages/workout_pages/widgets/popup.dart';
+import 'package:hoplite/data/workoutdata.dart';
+import 'package:hoplite/pages/workout_pages/widgets/addworkoutdialogue.dart';
 import 'package:hoplite/pages/workout_pages/widgets/workout_listview.dart';
-
 import '../quick_start_pages_template_start/quick start 1 widgets/h0_h2.dart';
 
 class WorkoutPage extends StatefulWidget {
@@ -16,6 +12,7 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
+  var workoutDetailInstance = workoutDetails;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +49,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             ),
                           ),
                         ),
-                        child: WorkoutListview(workoutDetails: workoutDetails)),
+                        child: WorkoutListview(
+                            workoutDetails: workoutDetailInstance)),
                   ],
                 ),
               ),
@@ -69,7 +67,12 @@ class _WorkoutPageState extends State<WorkoutPage> {
                           backgroundColor:
                               MaterialStatePropertyAll(Color(0xff5AF5C4))),
                       onPressed: () {
-                        addWorkoutPopup(context);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddWorkoutDialogue();
+                          },
+                        );
                       },
                       child: const Icon(
                         Icons.add,
@@ -90,44 +93,3 @@ class _WorkoutPageState extends State<WorkoutPage> {
 //
 //
 
-//test data
-List<WorkoutDetail> workoutDetails = [
-  WorkoutDetail('Bench Press', 'Chest', 3, 10, 50,
-      'lib/assets/exercise_pics/exercisePic (8).jpeg'),
-  WorkoutDetail('Pull-ups', 'Back', 3, 12, 0,
-      'lib/assets/exercise_pics/exercisePic (9).jpeg'),
-  WorkoutDetail('Push-ups', 'Chest', 3, 13, 0,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Cable Pull-ups', 'Back', 3, 10, 0,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Squats', 'Legs', 4, 8, 100,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Deadlifts', 'Back', 3, 8, 120,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Dumbbell Press', 'Chest', 3, 12, 40,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Barbell Rows', 'Back', 3, 10, 60,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Dips', 'Chest', 3, 10, 0,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Leg Press', 'Legs', 4, 10, 150,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Lat Pulldowns', 'Back', 3, 12, 50,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Incline Bench Press', 'Chest', 3, 10, 45,
-      'lib/assets/exercise_pics/exercisePic (8).jpeg'),
-  WorkoutDetail('Hamstring Curls', 'Legs', 3, 12, 40,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Pull-up Variations', 'Back', 3, 10, 0,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Chest Flys', 'Chest', 3, 12, 25,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Leg Extensions', 'Legs', 3, 12, 30,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Seated Cable Rows', 'Back', 3, 10, 55,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Shoulder Press', 'Shoulders', 3, 10, 40,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-  WorkoutDetail('Lunges', 'Legs', 3, 10, 0,
-      'lib/assets/exercise_pics/exercisePic (10).jpeg'),
-];

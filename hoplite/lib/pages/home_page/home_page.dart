@@ -9,7 +9,7 @@ import 'home page widgets/dashboard_box.dart';
 import 'home page widgets/profile_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF2F2F2),
       bottomNavigationBar: const BottomNavBar(),
       body: SafeArea(
@@ -31,14 +32,20 @@ class _HomePageState extends State<HomePage> {
             children: [
               //user name and profile avatar
               ProfileBar(
-                  userName: USER_DETAILS["firstName"], subTitle: "Hop Lite"),
-              //weekly dashbard
+                  userName: USER_DETAILS["firstName"] ?? "",
+                  subTitle: "Hop Lite"),
+              //weekly dashboard
               WeeklyDashboard(chartData: chartData),
               note(
                   'higher bars correspond to longer durations of physical activity per day🔥 '),
               //body stats
               StatusCards(
                 cardsData: cardsData,
+                updateCardData: (String type, int value) {
+                  setState(() {
+                    cardsData[type.toLowerCase()] = value;
+                  });
+                },
               ),
               //start workout button
               const ButtonLarge(
@@ -53,12 +60,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-//home page widgets/
-//
-//
-
-
-
-
-

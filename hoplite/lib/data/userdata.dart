@@ -5,7 +5,7 @@ const Map<String, String> USER_DETAILS = {
 };
 
 //data to be displayed on cards in homepage
-final Map<String, int> cardsData = {"weight": 60, "height": 175, "fat": 22};
+Map<String, int> cardsData = {"weight": 60, "height": 175, "fat": 22};
 
 //data to display on dashbaord chat hours per day
 final Map<String, double> chartData = {
