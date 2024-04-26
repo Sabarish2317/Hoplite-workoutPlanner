@@ -1,5 +1,11 @@
 # Hoplite-workoutPlanner
 
+## Screenshots
+
+![Screens](https://imgur.com/a/P2psv8X)
+
+
+
 HopLite is a fitness workout split tracking app designed to help users track and manage their workout routines in the gym. With HopLite, users can create custom workout splits or choose from predefined splits to plan their workouts. Additionally, users can add custom workouts and track details such as sets, reps, and weight for each exercise. HopLite is ideal for users looking to progressively overload and improve their fitness levels.
 
 ## Features
