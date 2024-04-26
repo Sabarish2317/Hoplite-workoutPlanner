@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class ProfileBar extends StatefulWidget {
-  final String? userName;
+  final String userName;
   final String? subTitle;
 
   const ProfileBar({

@@ -33,9 +33,7 @@ class _AddWorkoutDialogueState extends State<AddWorkoutDialogue> {
     setState(() {
       if (pickedImage != null) {
         _image = File(pickedImage.path);
-      } else {
-        print('No image selected.');
-      }
+      } else {}
     });
   }
   //
@@ -176,9 +174,9 @@ class _AddWorkoutDialogueState extends State<AddWorkoutDialogue> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         iconSize: MaterialStateProperty.all(24),
-                        shape: MaterialStateProperty.all(CircleBorder()),
+                        shape: MaterialStateProperty.all(const CircleBorder()),
                         backgroundColor:
-                            MaterialStateProperty.all(Color(0xff5AF5C4)),
+                            MaterialStateProperty.all(const Color(0xff5AF5C4)),
                       ),
                       onPressed: _getImageFromUser,
                       child: const Icon(
@@ -199,7 +197,7 @@ class _AddWorkoutDialogueState extends State<AddWorkoutDialogue> {
       ),
       actions: [
         WorkoutButtonSmall(
-          imagePath: _image != null ? _image!.path : null,
+          imagePath: _image?.path,
           context: context,
           repsController: repsController,
           setsController: setsController,

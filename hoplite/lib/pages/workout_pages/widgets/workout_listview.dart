@@ -30,13 +30,13 @@ class WorkoutListview extends StatelessWidget {
                           // Load as an asset
                           return Image.asset(
                             workoutDetails[index].imgPath,
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           );
                         } else {
                           // Load as a local file
                           return Image.file(
                             File(workoutDetails[index].imgPath),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           );
                         }
                       })(),

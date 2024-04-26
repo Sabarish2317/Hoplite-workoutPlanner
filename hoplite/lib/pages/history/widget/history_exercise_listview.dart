@@ -49,6 +49,7 @@ class HistoryExerciseListView extends StatelessWidget {
             child: Center(
               child: Text(
                 exerciseName,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Color(0xFF0B4130),
                   fontSize: 12,

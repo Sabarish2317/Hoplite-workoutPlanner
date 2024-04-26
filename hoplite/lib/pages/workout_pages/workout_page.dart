@@ -70,7 +70,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AddWorkoutDialogue();
+                            return const AddWorkoutDialogue();
                           },
                         );
                       },

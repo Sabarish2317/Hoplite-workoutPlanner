@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hoplite/data/appData.dart';
+import 'package:hoplite/data/app_data.dart';
 import 'package:hoplite/data/workoutdata.dart';
 import 'package:hoplite/pages/home_page/home_page.dart';
 import 'package:hoplite/pages/quick_start_pages_template_start/quick_start_page_1.dart';
-import 'package:hoplite/pages/start_workout_page/start_workout_page.dart';
 
 import '../../../model/workout_model.dart';
 
@@ -143,24 +142,15 @@ class _WorkoutCardState extends State<WorkoutCard> {
                 try {
                   setState(() {
                     if (type == "preDef") {
-                      for (int i = 0; i < appTemplateNames.length; i++) {
-                        if (appTemplateNames[i].name == name) {
-                          appTemplateNames.remove(i);
-                        }
-                      }
+                      appTemplateNames
+                          .removeWhere((template) => template.name == name);
                     } else if (type == "userDef") {
-                      for (int i = 0; i < templateNames.length; i++) {
-                        if (templateNames[i].name == name) {
-                          templateNames.remove(i);
-                        }
-                      }
+                      templateNames
+                          .removeWhere((template) => template.name == name);
                     }
-
-                    // appTemplateNames
-                    // templateNames
                   });
                 } catch (e) {
-                  print(e);
+                  // print(e);
                 }
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const HomePage()),

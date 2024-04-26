@@ -96,7 +96,7 @@ class SplitDaysListView extends StatelessWidget {
         // Check if the index is within bounds
         if (index >= 0 && index < dayListReference.length) {
           //parsing serial numberss as keys from the map and iterating over it
-          int serialNumber = index + 1;
+          int serialNumber = index;
           //creating instance of the class for the loop which
           DayName dayNameReference = dayListReference.values.elementAt(index);
           //using the instance to access the day name iteringingly

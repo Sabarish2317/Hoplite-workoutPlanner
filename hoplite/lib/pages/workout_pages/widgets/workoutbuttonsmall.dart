@@ -13,8 +13,8 @@ class WorkoutButtonSmall extends StatefulWidget {
   final TextEditingController? repsController;
   final TextEditingController? weightController;
 
-  WorkoutButtonSmall({
-    Key? key,
+  const WorkoutButtonSmall({
+    super.key,
     required this.context,
     this.imagePath, // Update the parameter
     this.workoutNameController,
@@ -22,7 +22,7 @@ class WorkoutButtonSmall extends StatefulWidget {
     this.setsController,
     this.repsController,
     this.weightController,
-  }) : super(key: key);
+  });
 
   @override
   State<WorkoutButtonSmall> createState() => _WorkoutButtonSmallState();
@@ -64,11 +64,11 @@ class _WorkoutButtonSmallState extends State<WorkoutButtonSmall> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Saved to workout History')));
           setState(() {
-            print("Workout Name: ${widget.workoutNameController!.text}");
-            print("Target Muscle: ${widget.targetMuscleController!.text}");
-            print("Sets: ${widget.setsController!.text}");
-            print("Reps: ${widget.repsController!.text}");
-            print("Weight: ${widget.weightController!.text}");
+            // print("Workout Name: ${widget.workoutNameController!.text}");
+            // print("Target Muscle: ${widget.targetMuscleController!.text}");
+            // print("Sets: ${widget.setsController!.text}");
+            // print("Reps: ${widget.repsController!.text}");
+            // print("Weight: ${widget.weightController!.text}");
             // Add the workout with the image path
             workoutDetails.add(WorkoutDetail(
               widget.workoutNameController!.text,

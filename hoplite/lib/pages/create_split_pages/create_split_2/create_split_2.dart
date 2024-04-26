@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hoplite/data/workoutdata.dart';
-
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/creat_split_list_view_heading.dart';
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/create_split_list_view.dart';
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/mycustom_stepper.dart';
 import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/note.dart';
 import 'package:hoplite/pages/start_workout_page/start_workout_page.dart';
 
-import '../../../data/appData.dart';
+import '../../../data/app_data.dart';
 import '../../../global_widgets/h1_h2.dart';
 import '../../../model/workout_model.dart';
 import '../../quick_start_pages_template_start/quick start 1 widgets/h0_h2.dart';
@@ -49,7 +46,7 @@ class _CreateSplit2State extends State<CreateSplit2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Your existing code...
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
@@ -108,7 +105,7 @@ class _CreateSplit2State extends State<CreateSplit2> {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Enter Day Name',
+                          'Enter Day Name *',
                           style: TextStyle(
                             color: Color(0xFF0B4130),
                             fontSize: 14,
@@ -317,22 +314,22 @@ class _CreateSplit2State extends State<CreateSplit2> {
                                           content: Text(
                                               'Created Split Successfully')));
 
-                                  // Assuming you have a list of TemplateName objects named templateNames
+                                  // havin a list of TemplateName objects named templateNames
 
-// Print each TemplateName instance in the list
-                                  appTemplateNames.forEach((template) {
-                                    print('TemplateName: ${template.name}');
-                                    print('Contents:');
-                                    template.dayList.forEach((index, dayName) {
-                                      print('  Day $index: ${dayName.dayName}');
-                                      dayName.workoutList
-                                          .forEach((index, workoutDetail) {
-                                        print(
-                                            '    Workout $index: ${workoutDetail.name}');
-                                        // Print other properties of workoutDetail as needed
-                                      });
-                                    });
-                                  });
+// // Print each TemplateName instance in the list
+//                                   appTemplateNames.forEach((template) {
+//                                     print('TemplateName: ${template.name}');
+//                                     print('Contents:');
+//                                     template.dayList.forEach((index, dayName) {
+//                                       print('  Day $index: ${dayName.dayName}');
+//                                       dayName.workoutList
+//                                           .forEach((index, workoutDetail) {
+//                                         print(
+//                                             '    Workout $index: ${workoutDetail.name}');
+//                                         // Print other properties of workoutDetail as needed
+//                                       });
+//                                     });
+//                                   });
                                 }
                               });
                             },

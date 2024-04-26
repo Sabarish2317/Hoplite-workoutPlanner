@@ -1,6 +1,6 @@
 //created custom tile go down to see implementation of listview builder
 import 'package:flutter/material.dart';
-import '../../../../data/appData.dart';
+import '../../../../data/app_data.dart';
 import '../../../../model/workout_model.dart';
 
 class WorkoutLiveListTile extends StatefulWidget {

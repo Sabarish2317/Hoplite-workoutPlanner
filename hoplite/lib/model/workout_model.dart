@@ -29,14 +29,14 @@ class TemplateName {
   TemplateName(this.name, this.dayList);
 }
 
-class History {
+class HistoryModel {
   final String date;
   final String time;
   final String splitName;
   final String dayName;
   final Map<int, List<dynamic>> completedExerciseDetails;
 
-  History(this.date, this.time, this.splitName, this.dayName,
+  HistoryModel(this.date, this.time, this.splitName, this.dayName,
       this.completedExerciseDetails);
 }
 

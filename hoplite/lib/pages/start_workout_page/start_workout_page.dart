@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:hoplite/data/hive_history_local_data.dart';
 import 'package:hoplite/data/workoutdata.dart';
 import 'package:hoplite/global_widgets/h1_h2.dart';
 import 'package:hoplite/pages/create_split_pages/create_split_1/create_split1.dart';
 import 'package:hoplite/pages/start_workout_page/widgets/bigbutton.dart';
 import 'package:hoplite/pages/start_workout_page/widgets/workout_cards.dart';
-import '../../data/appData.dart';
-import '../../data/userdata.dart';
+import '../../data/app_data.dart';
 import '../../model/workout_model.dart';
 import '../home_page/home page widgets/profile_bar.dart';
 
@@ -22,6 +22,15 @@ class StartWorkoutPage extends StatefulWidget {
 final List<TemplateName> templateNameInstance = templateNames;
 
 class _StartWorkoutPageState extends State<StartWorkoutPage> {
+  late Future<String> userName;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the future in initState
+    userName = UserDetails().getUserDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,16 +44,48 @@ class _StartWorkoutPageState extends State<StartWorkoutPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //user name and profile avatar
-              ProfileBar(
-                  userName: USER_DETAILS["firstName"],
-                  subTitle: "Start workout"),
+              FutureBuilder<String>(
+                future: userName,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    String userName = snapshot.data ?? 'Unknown';
+                    return ProfileBar(
+                        userName: userName, subTitle: "Start workout");
+                  }
+                },
+              ),
               h1h2("Quick Start", "Preset Workouts"),
               WorkoutCardsListView(
                   templateName: templateNameInstance, type: "preDef"),
               h1h2("Templates", "My templates"),
-              WorkoutCardsListView(
-                  templateName: appTemplateNames, type: "userDef"),
-              Text((appTemplateNames.length > 0) ? "" : "Create own splits"),
+
+              SizedBox(
+                  child: (appTemplateNames.isNotEmpty)
+                      ? WorkoutCardsListView(
+                          templateName: appTemplateNames, type: "userDef")
+                      : Column(
+                          children: [
+                            Image.asset(
+                              "lib/assets/exercise_pics/empty_icon.png",
+                              scale: 5,
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              "No templates available ,please create one",
+                              style: const TextStyle(
+                                color: Color(0xCC0B4130),
+                                fontSize: 12,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ],
+                        )),
               SplitButtonLarge(
                 headerrtext: "CREATE SPLIT",
                 subtext: "Splits",

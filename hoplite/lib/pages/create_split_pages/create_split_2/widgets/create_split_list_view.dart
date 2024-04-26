@@ -1,9 +1,6 @@
 //created custom tile go down to see implementation of listview builder
 import 'package:flutter/material.dart';
 import 'package:hoplite/data/workoutdata.dart';
-import 'package:hoplite/pages/create_split_pages/create_split_2/widgets/dd_button_for%20_str_exercise.dart';
-
-import '../../../../model/workout_model.dart';
 
 class CreateSplitListTile extends StatefulWidget {
   final int serialNumber;
@@ -11,6 +8,7 @@ class CreateSplitListTile extends StatefulWidget {
 
   final VoidCallback? onTap;
 
+  // ignore: use_key_in_widget_constructors
   const CreateSplitListTile({
     Key? key,
     required this.serialNumber,
@@ -59,7 +57,7 @@ class _CreateSplitListTileState extends State<CreateSplitListTile> {
             ),
           ),
           Container(
-            width: 150,
+            width: 160,
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: ShapeDecoration(
@@ -124,7 +122,7 @@ class CreateSplitListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
       child: ListView.builder(
         clipBehavior: Clip.antiAlias,
         itemCount: itemCount,

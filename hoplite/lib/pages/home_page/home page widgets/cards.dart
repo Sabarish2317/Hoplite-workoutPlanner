@@ -5,10 +5,10 @@ class StatusCards extends StatefulWidget {
   final void Function(String type, int value) updateCardData;
 
   const StatusCards({
-    Key? key,
+    super.key,
     required this.cardsData,
     required this.updateCardData,
-  }) : super(key: key);
+  });
 
   @override
   State<StatusCards> createState() => _StatusCardsState();
@@ -134,13 +134,13 @@ class Cards extends StatefulWidget {
   final Function() onTap;
 
   const Cards({
-    Key? key,
+    super.key,
     required this.measure,
     required this.type,
     required this.iconPath,
     required this.unit,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<Cards> createState() => _CardsState();

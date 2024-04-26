@@ -1,7 +1,8 @@
 //user name
-const Map<String, String> USER_DETAILS = {
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+
+var USER_DETAILS = {
   "firstName": "Sherlin",
-  "lastName": "Kumar"
 };
 
 //data to be displayed on cards in homepage

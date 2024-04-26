@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hoplite/data/appData.dart';
-import '../../model/workout_model.dart';
+import 'package:hoplite/data/app_data.dart';
+import 'package:hoplite/data/hive_history_local_data.dart';
 import '../quick_start_pages_template_start/quick start 1 widgets/h0_h2.dart';
 import 'widget/history_exercise_listview.dart';
 import 'widget/history_listview_heading.dart';
