@@ -5,7 +5,7 @@ import '../model/workout_model.dart';
 //
 //
 // KEY FOR CHAT BOT
-var apiKeys = "AIzaSyC0aZzTKgZS4Y5QpDNzY6JpMLmUY2BUuOY";
+var apiKeys = "";
 //
 //
 //data to be shown in drop down list in sheets
