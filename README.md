@@ -54,4 +54,3 @@ HopLite is currently under ongoing development. We are actively working on addin
 
 ---
 
-Feel free to customize this template further to include any additional details specific to your project!
